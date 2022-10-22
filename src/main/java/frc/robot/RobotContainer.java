@@ -15,6 +15,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Climb.ClimberState;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,7 +34,7 @@ public class RobotContainer {
   JoystickButton aButton = new JoystickButton(stick,1);
 
   public static final Climber climber = new Climber();
-
+  public ClimberState climberState = ClimberState.DOWN;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,8 +49,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    aButton.whenPressed(new Climb(climber));
-
+    if (climberState.equals(ClimberState.DOWN)) {
+      aButton.whenPressed(new Climb(climber, ClimberState.UP));
+      climberState = ClimberState.UP;
+    }
+    else {
+      aButton.whenPressed(new Climb(climber, ClimberState.DOWN));
+      climberState = ClimberState.DOWN;
+    }
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

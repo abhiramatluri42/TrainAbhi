@@ -12,21 +12,34 @@ import frc.robot.subsystems.Climber;
 public class Climb extends CommandBase {
   /** Creates a new climb. */
   public Climber climber;
+  public static ClimberState state;
 
-  public Climb(Climber climber) {
+  public Climb(Climber climber, ClimberState state) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climber = climber;
+    this.state = state;
     addRequirements(RobotContainer.climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.up();
+     switch (state) {
+        case UP: 
+          climber.up();
+        case DOWN:
+          climber.down();
+        case STOP:
+          climber.stop();
+        default:
+          climber.stop();
+     }
   }
 
   // Called once the command ends or is interrupted.
@@ -39,5 +52,11 @@ public class Climb extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public enum ClimberState {
+    UP,
+    DOWN,
+    STOP
   }
 }
