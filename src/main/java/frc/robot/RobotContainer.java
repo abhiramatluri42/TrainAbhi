@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -37,6 +38,7 @@ public class RobotContainer {
 
   public static final Climber climber = new Climber();
   public static final Intake intake = new Intake();
+  public static final Index index = new Index();
   public ClimberState climberState = ClimberState.DOWN;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -60,7 +62,7 @@ public class RobotContainer {
       L2.whenPressed(new Climb(climber, ClimberState.DOWN));
       climberState = ClimberState.DOWN;
     }
-    R2.whileHeld(new IntakeCommand(intake));
+    R2.whileHeld(new IntakeCommand(intake, index));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
