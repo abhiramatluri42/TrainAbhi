@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.commands.Climb;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -30,10 +32,11 @@ public class RobotContainer {
 
   public static XboxController controller = new XboxController(0);
 
-  Joystick stick = new Joystick(1);
-  JoystickButton aButton = new JoystickButton(stick,1);
+  final JoystickButton L2 = new JoystickButton(controller, 9);
+  final JoystickButton R2 = new JoystickButton(controller, 10);
 
   public static final Climber climber = new Climber();
+  public static final Intake intake = new Intake();
   public ClimberState climberState = ClimberState.DOWN;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -50,13 +53,14 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     if (climberState.equals(ClimberState.DOWN)) {
-      aButton.whenPressed(new Climb(climber, ClimberState.UP));
+      L2.whenPressed(new Climb(climber, ClimberState.UP));
       climberState = ClimberState.UP;
     }
     else {
-      aButton.whenPressed(new Climb(climber, ClimberState.DOWN));
+      L2.whenPressed(new Climb(climber, ClimberState.DOWN));
       climberState = ClimberState.DOWN;
     }
+    R2.whileHeld(new IntakeCommand(intake));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
