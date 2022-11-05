@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climber;
 
-public class Climb extends CommandBase {
+public class ClimbCommand extends CommandBase {
   /** Creates a new climb. */
   public Climber climber;
-  public static ClimberState state;
+  public ClimberState state;
 
-  public Climb(Climber climber, ClimberState state) {
+  public ClimbCommand(Climber climber, ClimberState state) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climber = climber;
     this.state = state;

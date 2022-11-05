@@ -5,10 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
-import frc.robot.commands.Climb;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Climber;
@@ -16,9 +14,8 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Climb.ClimberState;
+import frc.robot.commands.ClimbCommand.ClimberState;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -55,11 +52,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     if (climberState.equals(ClimberState.DOWN)) {
-      L2.whenPressed(new Climb(climber, ClimberState.UP));
+      L2.whenPressed(new ClimbCommand(climber, ClimberState.UP));
       climberState = ClimberState.UP;
     }
     else {
-      L2.whenPressed(new Climb(climber, ClimberState.DOWN));
+      L2.whenPressed(new ClimbCommand(climber, ClimberState.DOWN));
       climberState = ClimberState.DOWN;
     }
     R2.whileHeld(new IntakeCommand(intake, index));
