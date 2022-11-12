@@ -14,11 +14,11 @@ public class Index extends SubsystemBase {
   private CANSparkMax indexMotor;
 
   public Index() {
-    indexMotor = new CANSparkMax(0, MotorType.kBrushless);
+    indexMotor = new CANSparkMax(15, MotorType.kBrushless);
   }
 
-  public void runMotor() {
-    indexMotor.set(1);
+  public void runMotor(double speed) {
+    indexMotor.set(speed);
   }
 
   public void stop() {

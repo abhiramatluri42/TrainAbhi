@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase {
   private int minHeight = 5;
 
   public Climber() {
-    climberMotor = new CANSparkMax(0, MotorType.kBrushless);
+    climberMotor = new CANSparkMax(17, MotorType.kBrushless);
     climberEncoder = climberMotor.getEncoder();
   }
 

@@ -14,11 +14,11 @@ public class Intake extends SubsystemBase {
   private CANSparkMax intakeMotor;
 
   public Intake() {
-    intakeMotor = new CANSparkMax(0, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(12, MotorType.kBrushless);
   }
 
-  public void runMotor() {
-    intakeMotor.set(1);
+  public void runMotor(double speed) {
+    intakeMotor.set(speed);
   }
 
   public void stop() {

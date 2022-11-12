@@ -13,10 +13,12 @@ public class IntakeCommand extends CommandBase {
   /** Creates a new IntakeCommand. */
   public Intake intake;
   public Index index;
+  public IntakeEnum state;
 
-  public IntakeCommand(Intake intake, Index index) {
+  public IntakeCommand(Intake intake, Index index, IntakeEnum state) {
     this.index = index;
     this.intake = intake;
+    this.state = state;
     addRequirements(RobotContainer.index);
     addRequirements(RobotContainer.intake);
   }
@@ -30,8 +32,20 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.runMotor();
-    index.runMotor();
+    switch (state) {
+      case INTAKE:
+        intake.runMotor(1);
+        index.runMotor(1);
+      case OUTTAKE:
+        intake.runMotor(-1);
+        index.runMotor(-1);
+      case STOP:
+        intake.stop();
+        index.stop();
+      default:
+        intake.runMotor(1);
+        index.runMotor(1);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -45,5 +59,11 @@ public class IntakeCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public enum IntakeEnum {
+    INTAKE,
+    OUTTAKE,
+    STOP
   }
 }
