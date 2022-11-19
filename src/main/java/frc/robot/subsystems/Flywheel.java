@@ -18,11 +18,12 @@ public class Flywheel extends SubsystemBase {
   final double kV = 0.0075;
   final double kP = 0.1;
   final int setpoint = 300;
-  PIDController controller = new PIDController(kP, 0, 0);
+  PIDController controller;
 
   public Flywheel() {
     flywheelMotor = new CANSparkMax(10, MotorType.kBrushless);
     flywheelEncoder = flywheelMotor.getEncoder();
+    controller = new PIDController(kP, 0, 0);
   }
 
   public void start() {
