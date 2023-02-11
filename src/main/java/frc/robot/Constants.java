@@ -14,4 +14,12 @@ package frc.robot;
  */
 public final class Constants {
     
+    public static class OIConstants {
+        public static final int kDriverControllerPort = 0;
+    }
+
+    public static class SerializerConstants {
+        public static final int kmotorPort = 13;
+        private static final int kmotorPort2 = 14;
+    }
 }

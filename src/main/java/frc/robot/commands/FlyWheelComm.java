@@ -24,10 +24,13 @@ public class FlyWheelComm extends CommandBase {
     switch (state) {
       case ON:
         flywheel.start();
+        break;
       case OFF:
         flywheel.stop();
+        break;
       default:
         flywheel.stop();
+        break;
     }
   }
 

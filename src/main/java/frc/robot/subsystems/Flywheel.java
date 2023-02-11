@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,15 +19,15 @@ public class Flywheel extends SubsystemBase {
   private CANSparkMax flywheelSlave;
   private RelativeEncoder flywheelEncoder;
   private final double kV = 0.0075;
-  private final double kP = 0.1;
+  private final double kP = 0.0002;
   private final int setpoint = 300;
   private PIDController controller;
   private SparkMaxPIDController flywheelController;
   
 
   public Flywheel() {
-    flywheelMotor = new CANSparkMax(10, MotorType.kBrushless);
-    flywheelSlave = new CANSparkMax(9, MotorType.kBrushless);
+    flywheelMotor = new CANSparkMax(9, MotorType.kBrushless);
+    flywheelSlave = new CANSparkMax(10, MotorType.kBrushless);
     flywheelSlave.follow(flywheelMotor, true);
     flywheelEncoder = flywheelMotor.getEncoder();
 
@@ -38,7 +39,7 @@ public class Flywheel extends SubsystemBase {
   }
 
   public void start() {
-    flywheelMotor.setVoltage(controller.calculate(flywheelEncoder.getVelocity(), setpoint) + kV);
+    flywheelController.setReference(-setpoint, ControlType.kVelocity);
   }
 
   public void stop() {
